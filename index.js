@@ -88,48 +88,47 @@ var finances = [
   ['Feb-2017', 671099],
 ];
 
-// Function to calculate financial analysis
-function FinancialAnalysisJS(data) {
-  let totalMonths = data.length;
-  let netTotal = 0;
-  let totalChange = 0;
-  let greatestIncrease = { amount: 0 };
-  let greatestDecrease = { amount: 0 };
+// Initialize variables
+var totalMonths = finances.length;
+var netTotal = 0;
+var totalChange = 0;
+var greatestIncrease = { amount: 0 };
+var greatestDecrease = { amount: 0 };
 
-  for (let i = 1; i < totalMonths; i++) {
-    const [date, profitLoss] = data[i];
-    netTotal += profitLoss;
+// Loop through each month in the dataset
+for (var i = 1; i < totalMonths; i++) {
+  var date = finances[i][0];
+  var profitLoss = finances[i][1];
+  netTotal += profitLoss;
 
-    const change = profitLoss - data[i - 1][1];
-    totalChange += change;
+  var change = profitLoss - finances[i - 1][1];
+  totalChange += change;
 
-    if (change > greatestIncrease.amount) {
-      greatestIncrease.amount = change;
-      greatestIncrease.date = date;
-    } else if (change < greatestDecrease.amount) {
-      greatestDecrease.amount = change;
-      greatestDecrease.date = date;
-    }
+  if (change > greatestIncrease.amount) {
+    greatestIncrease.amount = change;
+    greatestIncrease.date = date;
+  } else if (change < greatestDecrease.amount) {
+    greatestDecrease.amount = change;
+    greatestDecrease.date = date;
   }
-
-  const averageChange = totalChange / (totalMonths - 1);
-
-  console.log("Financial Analysis");
-  console.log("----------------");
-  console.log("Total Months:", totalMonths);
-  console.log("Total: $" + netTotal);
-  console.log("Average Change: $" + averageChange.toFixed(2));
-  console.log(
-    "Greatest Increase in Profits/Losses:",
-    greatestIncrease.date,
-    "($" + greatestIncrease.amount + ")"
-  );
-  console.log(
-    "Greatest Decrease in Profits/Losses:",
-    greatestDecrease.date,
-    "($" + greatestDecrease.amount + ")"
-  );
 }
 
-// Call the function with the provided dataset
-FinancialAnalysisJS(finances);
+// Calculate average change
+var averageChange = totalChange / (totalMonths - 1);
+
+// Display the financial analysis
+console.log("Financial Analysis");
+console.log("----------------");
+console.log("Total Months:", totalMonths);
+console.log("Total: $" + netTotal);
+console.log("Average Change: $" + averageChange.toFixed(2));
+console.log(
+  "Greatest Increase in Profits/Losses:",
+  greatestIncrease.date,
+  "($" + greatestIncrease.amount + ")"
+);
+console.log(
+  "Greatest Decrease in Profits/Losses:",
+  greatestDecrease.date,
+  "($" + greatestDecrease.amount + ")"
+);
